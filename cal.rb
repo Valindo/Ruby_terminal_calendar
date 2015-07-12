@@ -21,16 +21,38 @@ def populateCalender(currentObject)
 	startDay = startDate.day 
 	weekDay = startDate.cwday #returns the week day number 1-7 1-monday
 	lastDay = Date.new(year,month, -1).day
-
-	for i in (startDay..35) do
-		if i == weekDay
-			print "#{startDay}"+"\t" if startDay <= lastDay
-			weekDay+=1
-			startDay+=1
-		else
-			print "\t"
+	rowCount = 1
+	if weekDay > 0
+		for i in (1..weekDay-1) do
+			print "*\t"
 		end
-		puts "" if i%7==0
+	end
+
+	for i in (startDay...lastDay+1) do
+		# if i == weekDay
+		# 	print "#{startDay}"+"\t" if startDay <= lastDay
+		# 	weekDay+=1
+		# 	startDay+=1
+		# else
+		# 	print "\t"
+		# end
+		print "#{startDay}"+"\t" if startDay <= lastDay
+		startDay+=1
+		if weekDay%7 == 0
+			puts ""
+			rowCount+=1
+		end
+		weekDay+=1
+	end
+	
+	if rowCount > 5
+		endOfCal = 42
+	else
+		endOfCal = 35
+	end
+
+	for i in (weekDay..endOfCal) do
+		print "*\t"
 	end
 	puts ""
 end
