@@ -57,8 +57,12 @@ def populateCalender(currentObject)
 		endOfCal = 35
 	end
 
+	#PRINT NEXT MONTH'S DATES
+	nextMonth = currentObject << -1
+	nextMonth = Date.new(nextMonth.year,nextMonth.month,1)
 	for i in (weekDay..endOfCal) do
-		print "*\t"
+		print "*#{nextMonth.day}\t"
+		nextMonth = nextMonth+1
 	end
 	puts ""
 end
