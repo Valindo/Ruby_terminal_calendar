@@ -22,9 +22,15 @@ def populateCalender(currentObject)
 	weekDay = startDate.cwday #returns the week day number 1-7 1-monday
 	lastDay = Date.new(year,month, -1).day
 	rowCount = 1
+	previousDays = weekDay - 1
+	previousDays = -previousDays
+	#FUCKING LOGIC TO PRINT PREVIOUS DAYS
 	if weekDay > 0
+		previousMonth = currentObject << 1
+		previousMonth = Date.new(previousMonth.year,previousMonth.month,previousDays)
 		for i in (1..weekDay-1) do
-			print "*\t"
+			print "*#{previousMonth.day}\t"
+			previousMonth = previousMonth + 1
 		end
 	end
 
