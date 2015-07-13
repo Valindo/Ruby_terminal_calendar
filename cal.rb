@@ -102,8 +102,19 @@ def populateCalender (currentObject, dow)
 		currentObject+=1
 	end
 
-	
-
+	currentObject -=1
+	if dow == 0
+		while !currentObject.saturday?
+			currentObject+=1
+			print "*#{currentObject.day}\t"			
+		end
+	elsif dow == 1
+		while !currentObject.sunday?
+			currentObject+=1
+			print "*#{currentObject.day}\t"
+		end
+	end
+	puts ""
 end
 
 
