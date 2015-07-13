@@ -20,61 +20,7 @@ end
 
 
 
-# def populateCalender(currentObject,dow)
-# 	dow = dow - 1
-# 	year = currentObject.year
-# 	month = currentObject.month
-# 	startDate = Date.new(year,month,1)
-# 	startDay = startDate.day 
-# 	weekDay = startDate.cwday #returns the week day number 1-7 1-monday
-# 	lastDay = Date.new(year,month, -1).day
-# 	rowCount = 1
-# 	previousDays = weekDay - 1
-# 	previousDays = -previousDays
-# 	#FUCKING LOGIC TO PRINT PREVIOUS DAYS
-# 	if weekDay > 0
-# 		previousMonth = currentObject << 1
-# 		previousMonth = Date.new(previousMonth.year,previousMonth.month,previousDays)
-# 		for i in (1..weekDay-1+dow) do
-# 			print "*#{previousMonth.day}\t"
-# 			previousMonth = previousMonth + 1
-# 		end
-# 	end
-# 	for i in (startDay+dow...lastDay+1) do
-# 		# if i == weekDay
-# 		# 	print "#{startDay}"+"\t" if startDay <= lastDay
-# 		# 	weekDay+=1
-# 		# 	startDay+=1
-# 		# else
-# 		# 	print "\t"
-# 		# end
-# 		print "#{startDay}"+"\t" if startDay <= lastDay
-# 		startDay+=1
-# 		if weekDay%7 == 0
-# 			puts ""
-# 			rowCount+=1
-# 		end
-# 		weekDay+=1
-# 	end
-	
-# 	if rowCount > 5
-# 		endOfCal = 42
-# 	else
-# 		endOfCal = 35
-# 	end
-
-# 	#PRINT NEXT MONTH'S DATES
-# 	nextMonth = currentObject << -1
-# 	nextMonth = Date.new(nextMonth.year,nextMonth.month,1)
-# 	for i in (weekDay..endOfCal + dow) do
-# 		print "*#{nextMonth.day}\t"
-# 		nextMonth = nextMonth+1
-# 	end
-# 	puts ""
-# end
-
 def populateCalender (currentObject, dow)
-	dow -=1
 	currentObject = Date.new(currentObject.year,currentObject.month,1)
 	lastDay = Date.new(currentObject.year,currentObject.month,-1).day
 
@@ -121,9 +67,10 @@ end
 
 date = Date.today
 
+dow = 1
 printCurrentMonth(date)
-printHeader(2)
-populateCalender(date,1)
+printHeader(1)
+populateCalender(date,dow)
 
 
 while 1
@@ -132,21 +79,22 @@ while 1
 	when 'P','p'
 		date = date << 1
 		printCurrentMonth(date)
-		printHeader(1)
+		printHeader(dow)
 		populateCalender(date,dow)
 	when 'N','n'
 		date = date << -1
 		printCurrentMonth(date)
-		printHeader(1)
-		populateCalender(date,2)
+		printHeader(dow)
+		populateCalender(date,dow)
 	when 'E','e'
 		break
 
 	when 'W','w'
-		puts "1. Start on monday"
-		puts "2. Start on Sunday"
+		puts "0. Start on Sunday"
+		puts "1. Start on Monday"
 		dow = gets.chomp
 		dow = dow.to_i
+		printCurrentMonth(date)
 		printHeader(dow)
 		populateCalender(date,dow)		
 
