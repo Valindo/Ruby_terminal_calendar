@@ -9,6 +9,7 @@ end
 		
 # weekday print after the above function call
 def printHeader(dow)
+
 	if dow==1
 		days_of_the_week = ["mon", "tue", "wed", "thur", "fri", "sat","sun"]
 	else
@@ -16,6 +17,11 @@ def printHeader(dow)
 	end
 	days_of_the_week.each { |x| print x+"\t"}
 	puts ""
+end
+
+
+def holidays(date)
+
 end
 
 
