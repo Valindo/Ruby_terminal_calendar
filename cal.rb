@@ -3,6 +3,8 @@ require 'date'
 
 # Pass date object here to print the month
 def printCurrentMonth(currentObject)
+	# REVIEW -- variable naming?! You can get these strings from Date library
+	# itself. No point reinventing the wheel.
 	yearNames = ["January","Febuary","March","April","May","June","July","August","September","October","November","December"]
 	puts "\t\t\t"+"#{yearNames[currentObject.month-1]}" +" #{currentObject.year}"
 end
@@ -10,6 +12,8 @@ end
 # weekday print after the above function call
 def printHeader(dow)
 
+	# REVIEW -- user should be able to select ANY DOW as the start point. No
+	# only mon or sun.
 	if dow==1
 		days_of_the_week = ["mon", "tue", "wed", "thur", "fri", "sat","sun"]
 	else
@@ -25,7 +29,9 @@ def holidays(date)
 end
 
 
-
+# REVIEW -- function name?! This makes it sound as if it is populating some
+# data structure. A better name would be print_calendar or display_calendar.
+# Also Ruby convention is to us snake_case not CamelCase.
 def populateCalender (currentObject, dow)
 	currentObject = Date.new(currentObject.year,currentObject.month,1)
 	lastDay = Date.new(currentObject.year,currentObject.month,-1).day
@@ -42,6 +48,8 @@ def populateCalender (currentObject, dow)
 		currentObject = currentObject - 1
 	end
 
+	# REVIEW -- try to separate out the ideas/processes of printing a 6 week
+	# calendar and printing asterisks against dates other than the current month.
 	for i in (count...weekDay) do
 		print "*#{currentObject.day}\t"
 		currentObject+=1
