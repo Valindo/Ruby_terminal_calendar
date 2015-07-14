@@ -1,5 +1,7 @@
 require 'date'
 
+$mark_date = "a"
+$legend = {}
 
 #Format : Month-Year
 # 1-Jan....12-Dec
@@ -22,6 +24,21 @@ def print_weekdays(start_day_of_week)
 	puts ""
 end
 
+def holiday?(date,letter)
+	holi = {
+		"2015-07-01" => "Dusshera",
+		"2015-07-02" => "Dusshera2",
+		"2015-08-01" => "fapday",
+		"2015-08-01" => "fapday"
+	}
+	if holi.has_key?(date) == true
+		$legend[letter] = holi[date]
+		return true
+	else
+		return false
+	end
+end
+
 def print_previous_dates(date_object, start_day_of_week)
 	previous_month = date_object - 1
 	if date_object.wday != start_day_of_week
@@ -31,6 +48,10 @@ def print_previous_dates(date_object, start_day_of_week)
 
 		while previous_month.wday != date_object.wday
 			print "*#{previous_month.day}"
+			if holiday?(previous_month.strftime("%Y-%m-%d"),$mark_date) == true
+				print $mark_date
+				$mark_date = $mark_date.next
+			end
 			print "\t"
 			previous_month = previous_month + 1
 		end
@@ -56,7 +77,7 @@ end
 
 #prints the calender which includes the headers ( month, year, days of the week)
 def print_calender(date_object, start_day_of_week)
-	
+	$mark_date = "a"
 	#print the first few parts of the calender
 	print_month_n_year(date_object)
 	print_weekdays(start_day_of_week)
@@ -69,6 +90,10 @@ def print_calender(date_object, start_day_of_week)
 
 	while date_object.day != last_day.day
 		print "#{date_object.day}"
+		if holiday?(date_object.strftime("%Y-%m-%d"),$mark_date) == true
+			print $mark_date
+			$mark_date = $mark_date.next
+		end
 		print "\t" 
 		puts "" if end_day_of_week == date_object.wday
 		date_object = date_object + 1
@@ -78,6 +103,8 @@ def print_calender(date_object, start_day_of_week)
 	print_next_dates(date_object,start_day_of_week)
 
 	puts ""
+	$legend.each {|x,y| puts "#{x}:#{y}"}
+	$legend.clear
 end
 
 
@@ -85,6 +112,11 @@ end
 dow = 1
 date = Date.today
 print_calender(date, dow)
+
+
+
+
+
 
 
 while 1
@@ -105,4 +137,3 @@ while 1
 		break
 	end
 end
-
